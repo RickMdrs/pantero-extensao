@@ -6,6 +6,15 @@ function txt(sel) {
   return el ? el.textContent.trim().replace(/\s+/g, " ") : null;
 }
 
+// Primeiro elemento com texto NÃO-vazio (Amazon tem .a-offscreen em branco antes do preço real).
+function txtFirst(sel) {
+  for (const el of document.querySelectorAll(sel)) {
+    const t = el.textContent.trim().replace(/\s+/g, " ");
+    if (t) return t;
+  }
+  return null;
+}
+
 function attr(sel, name) {
   const el = document.querySelector(sel);
   return el ? el.getAttribute(name) : null;
@@ -14,12 +23,13 @@ function attr(sel, name) {
 function lerAmazon() {
   const titulo = txt("#productTitle") || txt("#title");
   const preco =
-    txt(".a-price:not(.a-text-price) .a-offscreen") ||
-    txt("#corePrice_feature_div .a-offscreen") ||
+    txtFirst("#corePriceDisplay_desktop_feature_div .a-price:not(.a-text-price) .a-offscreen") ||
+    txtFirst(".a-price:not(.a-text-price) .a-offscreen") ||
+    txtFirst("#corePrice_feature_div .a-offscreen") ||
     txt("#priceblock_ourprice");
   const precoAntigo =
-    txt(".basisPrice .a-offscreen") ||
-    txt("span.a-price.a-text-price .a-offscreen");
+    txtFirst(".basisPrice .a-offscreen") ||
+    txtFirst("span.a-price.a-text-price .a-offscreen");
   const imagem =
     attr("#landingImage", "data-old-hires") ||
     attr("#landingImage", "src") ||
