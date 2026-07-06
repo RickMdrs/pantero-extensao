@@ -6,8 +6,9 @@ function mostrar(estado) {
   );
 }
 
-function erro(msg) {
+function erro(msg, backendOff) {
   $("erro-msg").textContent = msg;
+  $("status-dot").classList.toggle("off", !!backendOff);
   mostrar("erro");
 }
 
@@ -31,15 +32,47 @@ async function converter(payload) {
   });
 }
 
+function preencherProduto(produto, data) {
+  $("plataforma").textContent = data.plataforma;
+  $("titulo").textContent = produto.titulo || "Produto";
+
+  const antigo = $("preco-antigo");
+  if (produto.precoAntigo && produto.precoAntigo !== produto.preco) {
+    antigo.textContent = produto.precoAntigo;
+    antigo.classList.remove("hidden");
+  } else {
+    antigo.classList.add("hidden");
+  }
+  $("preco").textContent = produto.preco || "";
+
+  const frame = document.querySelector(".foto-frame");
+  const card = document.querySelector(".produto");
+  const foto = $("foto");
+  const baixar = $("baixar");
+  if (data.imagem) {
+    foto.src = data.imagem;
+    foto.dataset.url = data.imagem;
+    frame.classList.add("has-img");
+    card.classList.remove("no-img");
+    baixar.classList.remove("hidden");
+  } else {
+    frame.classList.remove("has-img");
+    card.classList.add("no-img");
+    baixar.classList.add("hidden");
+  }
+}
+
 async function iniciar() {
   mostrar("loading");
+  $("status-dot").classList.remove("off");
+
   const tab = await abaAtiva();
   if (!tab) return erro("Não achei a aba ativa.");
 
   const produto = await lerProduto(tab.id);
   if (!produto) {
     return erro(
-      "Abra a página de um produto da Amazon ou Mercado Livre e tente de novo."
+      "Abra a página de um produto da Amazon, Mercado Livre ou Magalu e tente de novo."
     );
   }
 
@@ -52,36 +85,34 @@ async function iniciar() {
   });
 
   if (!resp || !resp.ok) {
-    return erro(resp?.erro || "Erro ao falar com o Pantero.");
+    return erro(resp?.erro || "Erro ao falar com o Pantero.", true);
   }
   const data = resp.data;
   if (!data.success) {
     return erro(data.message || "Não deu pra converter.");
   }
 
-  $("plataforma").textContent = data.plataforma;
+  preencherProduto(produto, data);
   $("mensagem").value = data.mensagem;
-
-  const foto = $("foto");
-  const baixar = $("baixar");
-  if (data.imagem) {
-    foto.src = data.imagem;
-    foto.dataset.url = data.imagem;
-    foto.classList.remove("hidden");
-    baixar.classList.remove("hidden");
-  } else {
-    foto.classList.add("hidden");
-    baixar.classList.add("hidden");
-  }
-
   mostrar("resultado");
 }
 
+/* copiar com morph de estado */
+let copiarTimer = null;
 $("copiar").addEventListener("click", async () => {
   await navigator.clipboard.writeText($("mensagem").value);
-  const fb = $("feedback");
-  fb.classList.remove("hidden");
-  setTimeout(() => fb.classList.add("hidden"), 1500);
+  const btn = $("copiar");
+  btn.classList.add("done");
+  btn.querySelector(".ic-copy").classList.add("hidden");
+  btn.querySelector(".ic-check").classList.remove("hidden");
+  $("copiar-label").textContent = "Copiado";
+  clearTimeout(copiarTimer);
+  copiarTimer = setTimeout(() => {
+    btn.classList.remove("done");
+    btn.querySelector(".ic-copy").classList.remove("hidden");
+    btn.querySelector(".ic-check").classList.add("hidden");
+    $("copiar-label").textContent = "Copiar mensagem";
+  }, 1600);
 });
 
 $("baixar").addEventListener("click", () => {
