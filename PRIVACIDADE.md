@@ -7,8 +7,8 @@ política descreve exatamente o que ela faz com dados.
 
 ## O que a extensão acessa
 
-Quando você **clica no ícone** da extensão em uma página de produto da Amazon ou
-Mercado Livre, ela lê da página atual:
+Quando você **clica no ícone** da extensão em uma página de produto da Amazon,
+Mercado Livre ou Magalu, ela lê da página atual:
 
 - Título do produto
 - Preço (atual e anterior, quando disponíveis)
@@ -31,7 +31,7 @@ link de afiliado e a mensagem de divulgação.
 
 ## Permissões e por quê
 
-- **activeTab / acesso a Amazon e Mercado Livre:** ler os dados do produto na aba ativa.
+- **activeTab / acesso a Amazon, Mercado Livre e Magalu:** ler os dados do produto na aba ativa.
 - **downloads:** baixar a imagem do produto quando você clica em "Baixar imagem".
 - **clipboardWrite:** copiar a mensagem pronta quando você clica em "Copiar".
 - **acesso a `127.0.0.1` (localhost):** comunicar com o app Pantero no seu computador.

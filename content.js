@@ -56,11 +56,56 @@ function lerMercadoLivre() {
   return { titulo, preco, precoAntigo, imagem };
 }
 
+function metaProp(prop) {
+  const el = document.querySelector(`meta[property="${prop}"]`);
+  return el ? el.getAttribute("content") : null;
+}
+
+// Acha o objeto Product no JSON-LD da página (formato padrão de e-commerce).
+function jsonLdProduto() {
+  for (const s of document.querySelectorAll('script[type="application/ld+json"]')) {
+    try {
+      const data = JSON.parse(s.textContent);
+      const arr = Array.isArray(data) ? data : data["@graph"] || [data];
+      for (const it of arr) {
+        const t = it && it["@type"];
+        if (t === "Product" || (Array.isArray(t) && t.includes("Product"))) return it;
+      }
+    } catch {}
+  }
+  return null;
+}
+
+function precoBR(v) {
+  if (v == null) return null;
+  return `R$ ${String(v).replace(".", ",")}`;
+}
+
+function lerMagalu() {
+  const ld = jsonLdProduto();
+
+  let titulo = (ld && ld.name) || metaProp("og:title") || txt('h1[data-testid="heading-product-title"]');
+  if (titulo) titulo = titulo.replace(/\s*[|\-]\s*(Magazine Luiza|Magalu).*$/i, "").trim();
+
+  let imagem = ld && ld.image ? (Array.isArray(ld.image) ? ld.image[0] : ld.image) : null;
+  imagem = imagem || metaProp("og:image");
+
+  const offers = ld && ld.offers;
+  const off = Array.isArray(offers) ? offers[0] : offers;
+  let preco = off && off.price ? precoBR(off.price) : null;
+  preco = preco || precoBR(metaProp("product:price:amount")) || txt('[data-testid="price-value"]');
+
+  const precoAntigo = txt('[data-testid="price-original"]');
+  return { titulo, preco, precoAntigo, imagem };
+}
+
 function lerProduto() {
   const host = location.hostname;
   if (host.includes("amazon")) return lerAmazon();
   if (host.includes("mercadolivre") || host.includes("mercadolibre"))
     return lerMercadoLivre();
+  if (host.includes("magazineluiza") || host.includes("magazinevoce") || host.includes("magalu"))
+    return lerMagalu();
   return { titulo: null, preco: null, precoAntigo: null, imagem: null };
 }
 

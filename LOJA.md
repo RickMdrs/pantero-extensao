@@ -21,20 +21,20 @@ Pantero IA — Afiliar
 
 **Descrição curta (summary, até 132 caracteres):**
 ```
-Abra um produto na Amazon ou Mercado Livre e gere o link de afiliado + mensagem pronta pra postar. Funciona com o app Pantero IA.
+Abra um produto na Amazon, Mercado Livre ou Magalu e gere o link de afiliado + mensagem pronta. Funciona com o app Pantero IA.
 ```
 
 **Descrição detalhada:**
 ```
 A extensão oficial do Pantero IA para afiliados.
 
-Abra qualquer produto na Amazon ou no Mercado Livre, clique no ícone e pronto:
-a IA gera o link de afiliado e uma mensagem de divulgação já formatada, com
-título, preço e a foto do produto pra baixar. Um clique pra copiar, outro pra
+Abra qualquer produto na Amazon, no Mercado Livre ou no Magalu, clique no ícone
+e pronto: a IA gera o link de afiliado e uma mensagem de divulgação já formatada,
+com título, preço e a foto do produto pra baixar. Um clique pra copiar, outro pra
 abrir no WhatsApp.
 
 RECURSOS
-• Link de afiliado automático (Amazon e Mercado Livre)
+• Link de afiliado automático (Amazon, Mercado Livre e Magalu)
 • Mensagem de promoção pronta, no padrão que converte
 • Foto do produto pra baixar e anexar
 • Copiar com um clique / abrir direto no WhatsApp
@@ -60,14 +60,14 @@ Hospede o arquivo `PRIVACIDADE.md` e cole a URL. Opções:
 
 ## 4. Justificativas de permissão 👤
 Se a loja pedir, cole:
-- **activeTab / host (Amazon, Mercado Livre):** "Ler os dados do produto (título,
+- **activeTab / host (Amazon, Mercado Livre, Magalu):** "Ler os dados do produto (título,
   preço, imagem) na página que o usuário está vendo, para gerar o link de afiliado."
 - **downloads:** "Baixar a imagem do produto quando o usuário clica em Baixar imagem."
 - **clipboardWrite:** "Copiar a mensagem pronta para a área de transferência."
 - **host 127.0.0.1 (localhost):** "Comunicar com o aplicativo Pantero IA instalado no
   computador do próprio usuário, que gera o link de afiliado."
 - **Finalidade única (single purpose):** "Gerar link de afiliado e mensagem de
-  divulgação a partir da página de um produto."
+  divulgação a partir da página de um produto na Amazon, Mercado Livre ou Magalu."
 
 ## 5. Visibilidade 👤
 - **Não listada (unlisted):** só quem tem o link instala. Recomendado — combina com

@@ -1,7 +1,7 @@
 # Pantero IA — Extensão "Afiliar Rápido"
 
-Extensão de navegador (Chrome/Edge) do **Pantero IA**. Abra um produto da Amazon ou
-Mercado Livre, clique no ícone e a IA gera o link de afiliado + a mensagem pronta pra postar.
+Extensão de navegador (Chrome/Edge) do **Pantero IA**. Abra um produto da Amazon,
+Mercado Livre ou Magalu, clique no ícone e a IA gera o link de afiliado + a mensagem pronta pra postar.
 
 > Funciona junto com o app **Pantero IA** aberto e assinatura ativa. Usa a mesma licença —
 > sem login separado.
@@ -24,3 +24,4 @@ Mercado Livre, clique no ícone e a IA gera o link de afiliado + a mensagem pron
 
 - Amazon
 - Mercado Livre
+- Magalu
