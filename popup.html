@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <span class="logo">Pantero<span class="ia">IA</span></span>
+    </header>
+
+    <main id="app">
+      <div id="loading" class="estado">
+        <div class="spinner"></div>
+        <p>Lendo produto…</p>
+      </div>
+
+      <div id="erro" class="estado hidden">
+        <p id="erro-msg"></p>
+        <button id="tentar" class="btn-sec">Tentar de novo</button>
+      </div>
+
+      <div id="resultado" class="hidden">
+        <span id="plataforma" class="tag"></span>
+        <img id="foto" class="foto hidden" alt="produto" />
+        <textarea id="mensagem" rows="8" spellcheck="false"></textarea>
+        <div class="acoes">
+          <button id="copiar" class="btn-pri">Copiar texto</button>
+          <button id="baixar" class="btn-sec hidden">Baixar imagem</button>
+        </div>
+        <button id="whatsapp" class="btn-sec full">Abrir WhatsApp</button>
+        <p id="feedback" class="feedback hidden">Copiado ✓</p>
+      </div>
+    </main>
+  </body>
+  <script src="popup.js"></script>
+</html>
